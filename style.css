@@ -1,0 +1,4 @@
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#eef8fc;margin:0}
+header{background:#73b9e6;color:#fff;padding:24px;text-align:center;border-radius:0 0 20px 20px}
+.card{background:#fff;margin:16px;padding:16px;border-radius:16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+button{background:#73b9e6;color:#fff;border:none;border-radius:10px;padding:10px 14px}

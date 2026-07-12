@@ -1,0 +1,9 @@
+{
+"name":"Kaci Gets Stronger",
+"short_name":"Stronger",
+"display":"standalone",
+"start_url":"./index.html",
+"background_color":"#eef8fc",
+"theme_color":"#73b9e6",
+"icons":[]
+}
