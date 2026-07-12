@@ -1,8 +1,10 @@
-// ===============================
+// ============================
 
-// Kaci Strong v6.0
+// Kaci Strong v6.2
 
-// ===============================
+// Automatic Work Rotation
+
+// ============================
 
 // Greeting
 
@@ -10,218 +12,240 @@ const greeting = document.getElementById("greeting");
 
 const hour = new Date().getHours();
 
-if (hour < 12) {
+if(hour < 12){
 
     greeting.textContent = "Good Morning, Kaci!";
 
-} else if (hour < 18) {
+}else if(hour < 18){
 
     greeting.textContent = "Good Afternoon, Kaci!";
 
-} else {
+}else{
 
     greeting.textContent = "Good Evening, Kaci!";
 
 }
 
-// ---------- Load Saved Data ----------
+// ----------------------------
 
-let water = parseInt(localStorage.getItem("water")) || 0;
+// Rotation
 
-let protein = parseInt(localStorage.getItem("protein")) || 0;
+// July 17, 2026 = OFF DAY
 
-let streak = parseInt(localStorage.getItem("streak")) || 0;
+// ----------------------------
 
-// ---------- Dashboard ----------
+const rotation = [
 
-function refreshDashboard() {
+"WORK",
 
-    document.getElementById("waterCount").textContent =
+"WORK",
 
-        `${water} / 8`;
+"WORK",
 
-    document.getElementById("proteinCount").textContent =
+"OFF",
 
-        `${protein} / 120g`;
+"WORK",
 
-    document.getElementById("streak").textContent =
+"WORK",
 
-        `${streak} Days`;
+"WORK",
 
-}
+"OFF",
 
-refreshDashboard();
+"OFF",
 
-// ---------- Water ----------
+"OFF",
 
-document.getElementById("waterPlus").onclick = () => {
+"WORK",
 
-    if (water < 8) water++;
+"OFF",
 
-    localStorage.setItem("water", water);
+"OFF",
 
-    refreshDashboard();
+"OFF"
 
-};
+];
 
-document.getElementById("waterMinus").onclick = () => {
+const rotationStart =
 
-    if (water > 0) water--;
+new Date(2026,6,17); // July = month 6
 
-    localStorage.setItem("water", water);
+const today = new Date();
 
-    refreshDashboard();
+rotationStart.setHours(0,0,0,0);
 
-};
+today.setHours(0,0,0,0);
 
-// ---------- Protein ----------
+const days =
 
-document.getElementById("proteinPlus").onclick = () => {
+Math.floor(
 
-    protein += 10;
+(today-rotationStart)/(1000*60*60*24)
 
-    if (protein > 120) protein = 120;
+);
 
-    localStorage.setItem("protein", protein);
+const index =
 
-    refreshDashboard();
+((days % rotation.length)+rotation.length)
 
-};
+% rotation.length;
 
-document.getElementById("proteinMinus").onclick = () => {
+const todayStatus =
 
-    protein -= 10;
+rotation[index];
 
-    if (protein < 0) protein = 0;
+const status =
 
-    localStorage.setItem("protein", protein);
+document.getElementById("statusPill");
 
-    refreshDashboard();
+if(todayStatus==="WORK"){
 
-};
+status.innerHTML="🔴 WORK DAY";
 
-// ---------- Workout ----------
+status.style.background="#ffe5e5";
 
-const boxes =
+status.style.color="#c62828";
 
-document.querySelectorAll(".exercise-list input");
+}else{
 
-const progress =
+status.innerHTML="🟢 OFF DAY";
 
-document.getElementById("progressFill");
+status.style.background="#eef8ea";
 
-boxes.forEach(box => {
-
-    box.addEventListener("change", updateWorkout);
-
-});
-
-function updateWorkout() {
-
-    let checked = 0;
-
-    boxes.forEach(box => {
-
-        if (box.checked) checked++;
-
-    });
-
-    const percent =
-
-        (checked / boxes.length) * 100;
-
-    progress.style.width = percent + "%";
+status.style.color="#2e7d32";
 
 }
 
-// ---------- Start Workout ----------
+// ----------------------------
 
-const workoutButton =
+// Next OFF Day
 
-document.getElementById("startWorkout");
+// ----------------------------
 
-workoutButton.onclick = () => {
+let nextOff = 0;
 
-    let checked = 0;
+for(let i=1;i<=rotation.length;i++){
 
-    boxes.forEach(box => {
+let check =
 
-        if (box.checked) checked++;
+rotation[(index+i)%rotation.length];
 
-    });
+if(check==="OFF"){
 
-    if (checked !== boxes.length) {
+nextOff=i;
 
-        alert("Complete every exercise first 💪");
+break;
 
-        return;
+}
 
-    }
+}
 
-    streak++;
+const nextText =
 
-    localStorage.setItem("streak", streak);
+document.getElementById("nextOffDay");
 
-    refreshDashboard();
+if(nextOff===1){
 
-    workoutButton.textContent =
+nextText.textContent =
 
-        "✅ Workout Complete";
+"Tomorrow is an OFF day";
 
-    workoutButton.style.background =
+}else if(nextOff===0){
 
-        "#34c759";
+nextText.textContent =
 
-    alert("🎉 Great job, Kaci!");
+"Today is an OFF day";
+
+}else{
+
+nextText.textContent =
+
+nextOff +
+
+" days until your next OFF day";
+
+}
+
+// ----------------------------
+
+// Existing trackers
+
+// ----------------------------
+
+let water =
+
+Number(localStorage.getItem("water")) || 0;
+
+let protein =
+
+Number(localStorage.getItem("protein")) || 0;
+
+let streak =
+
+Number(localStorage.getItem("streak")) || 0;
+
+function refresh(){
+
+document.getElementById("waterCount").textContent =
+
+water + " / 8";
+
+document.getElementById("proteinCount").textContent =
+
+protein + " / 120g";
+
+document.getElementById("streak").textContent =
+
+streak + " Days";
+
+}
+
+refresh();
+
+document.getElementById("waterPlus").onclick=()=>{
+
+if(water<8){
+
+water++;
+
+localStorage.setItem("water",water);
+
+refresh();
+
+}
 
 };
 
-// ---------- Navigation ----------
+document.getElementById("waterMinus").onclick=()=>{
 
-const navButtons =
+if(water>0){
 
-document.querySelectorAll(".bottom-nav button");
+water--;
 
-navButtons.forEach(button => {
+localStorage.setItem("water",water);
 
-    button.addEventListener("click", () => {
+refresh();
 
-        navButtons.forEach(btn =>
+}
 
-            btn.classList.remove("active"));
+};
 
-        button.classList.add("active");
+document.getElementById("proteinPlus").onclick=()=>{
 
-    });
+protein=Math.min(120,protein+10);
 
-});
+localStorage.setItem("protein",protein);
 
-// ---------- Auto Save Checkboxes ----------
+refresh();
 
-boxes.forEach((box, index) => {
+};
 
-    const saved =
+document.getElementById("proteinMinus").onclick=()=>{
 
-        localStorage.getItem("exercise" + index);
+protein=Math.max(0,protein-10);
 
-    if (saved === "true")
+localStorage.setItem("protein",protein);
 
-        box.checked = true;
+refresh();
 
-    box.addEventListener("change", () => {
-
-        localStorage.setItem(
-
-            "exercise" + index,
-
-            box.checked
-
-        );
-
-        updateWorkout();
-
-    });
-
-});
-
-updateWorkout();
+};
