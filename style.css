@@ -1,4 +1,8 @@
-/* ---------- Kaci Strong v5.0 ---------- */
+/* ===========================
+
+   Kaci Strong v6.0
+
+=========================== */
 
 *{
 
@@ -14,23 +18,23 @@
 
 body{
 
-    background:#eef5fb;
+    background:#edf4fb;
 
-    color:#1f2937;
+    color:#1e293b;
 
-    padding-bottom:90px;
+    padding-bottom:110px;
 
 }
 
 .hero{
 
-    background:linear-gradient(180deg,#7fb5e8,#95c3ec);
+    background:linear-gradient(180deg,#6ea8dc,#8dbde8);
 
     color:white;
 
     text-align:center;
 
-    padding:40px 20px;
+    padding:30px 20px 45px;
 
     border-radius:0 0 35px 35px;
 
@@ -38,15 +42,15 @@ body{
 
 .hero h1{
 
-    font-size:44px;
+    font-size:2.7rem;
 
-    margin-bottom:15px;
+    margin-bottom:10px;
 
 }
 
 .hero p{
 
-    font-size:24px;
+    font-size:1.2rem;
 
 }
 
@@ -54,43 +58,35 @@ body{
 
     display:inline-block;
 
-    margin-top:20px;
+    margin-top:18px;
 
-    background:#eef8ea;
+    background:#eff9ec;
 
     color:#2e7d32;
 
     padding:12px 28px;
 
-    border-radius:999px;
+    border-radius:50px;
 
     font-weight:bold;
 
-    font-size:24px;
+    font-size:1.2rem;
 
 }
 
-.nextOff{
+.next-off{
 
     margin-top:18px;
 
-    font-size:22px;
-
     font-weight:600;
 
-}
-
-.page{
-
-    display:none;
-
-    padding:22px;
+    font-size:1.1rem;
 
 }
 
-.page.active{
+main{
 
-    display:block;
+    padding:20px;
 
 }
 
@@ -102,33 +98,33 @@ body{
 
     padding:28px;
 
-    margin-bottom:24px;
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
 
-    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    margin-bottom:22px;
 
 }
 
 .card h2{
 
-    font-size:42px;
+    font-size:2rem;
 
-    margin-bottom:18px;
+    margin-bottom:15px;
 
 }
 
 .card h3{
 
-    font-size:34px;
+    font-size:1.7rem;
 
-    margin-bottom:18px;
+    margin-bottom:20px;
 
 }
 
-.progressBar{
-
-    width:100%;
+.progress-bar{
 
     height:12px;
+
+    width:100%;
 
     background:#e5e7eb;
 
@@ -136,19 +132,19 @@ body{
 
     overflow:hidden;
 
-    margin:20px 0;
+    margin-bottom:22px;
 
 }
 
-#workoutProgress{
+#progressFill{
 
     width:0%;
 
     height:100%;
 
-    background:#4caf50;
+    background:#42c26b;
 
-    transition:.4s;
+    transition:.35s;
 
 }
 
@@ -156,73 +152,77 @@ body{
 
     list-style:none;
 
-    margin:20px 0;
+    margin-bottom:25px;
 
 }
 
 .exercise-list li{
 
-    font-size:30px;
+    margin:14px 0;
 
-    margin:16px 0;
+    font-size:1.45rem;
 
 }
 
 .exercise-list input{
 
-    width:26px;
+    width:24px;
 
-    height:26px;
+    height:24px;
 
-    margin-right:10px;
+    margin-right:12px;
 
 }
 
-button{
+#startWorkout{
 
-    background:#79afe3;
+    width:100%;
+
+    background:#6ea8dc;
 
     color:white;
 
     border:none;
 
+    padding:18px;
+
     border-radius:16px;
 
-    padding:16px 24px;
+    font-size:1.2rem;
 
-    font-size:24px;
-
-    cursor:pointer;
+    font-weight:bold;
 
 }
 
-.grid{
+.dashboard{
 
     display:grid;
 
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(2,1fr);
 
-    gap:20px;
+    gap:18px;
 
 }
 
-.small-card{
+.mini-card{
 
     background:white;
 
     border-radius:24px;
 
-    padding:24px;
+    padding:20px;
 
-    box-shadow:0 8px 18px rgba(0,0,0,.08);
+    box-shadow:0 10px 20px rgba(0,0,0,.07);
+
+    min-height:180px;
 
 }
 
-.small-card h3{
+.mini-card h3{
 
-    font-size:28px;
+    margin-bottom:20px;
 
-    margin-bottom:18px;
+    font-size:1.5rem;
 
 }
 
@@ -236,23 +236,41 @@ button{
 
 }
 
+.counter button{
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:#6ea8dc;
+
+    color:white;
+
+    font-size:1.6rem;
+
+}
+
 .counter span{
 
-    font-size:30px;
+    font-size:1.35rem;
 
     font-weight:bold;
 
 }
 
-.counter button{
+#streak,
 
-    width:56px;
+#goalRemaining{
 
-    height:56px;
+    font-size:1.4rem;
 
-    padding:0;
+    font-weight:bold;
 
-    border-radius:14px;
+    margin-top:18px;
 
 }
 
@@ -260,13 +278,11 @@ button{
 
     position:fixed;
 
-    bottom:0;
-
     left:0;
 
     right:0;
 
-    height:82px;
+    bottom:0;
 
     background:white;
 
@@ -274,19 +290,19 @@ button{
 
     justify-content:space-around;
 
-    align-items:center;
+    padding:12px 0;
 
-    box-shadow:0 -3px 12px rgba(0,0,0,.12);
+    box-shadow:0 -6px 18px rgba(0,0,0,.10);
 
 }
 
-.nav-btn{
+.bottom-nav button{
 
     background:none;
 
-    color:#666;
-
     border:none;
+
+    color:#64748b;
 
     display:flex;
 
@@ -294,14 +310,20 @@ button{
 
     align-items:center;
 
-    font-size:14px;
+    font-size:1rem;
 
 }
 
-.nav-btn.active{
+.bottom-nav button.active{
 
-    color:#4a90e2;
+    color:#3b82f6;
 
     font-weight:bold;
+
+}
+
+.bottom-nav span{
+
+    margin-top:4px;
 
 }
