@@ -1,0 +1,4 @@
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#eef7fc;color:#234}
+.hero{background:#79bfe8;color:#fff;padding:32px;border-radius:0 0 24px 24px;text-align:center}
+.status-card,.card{background:#fff;margin:18px;padding:18px;border-radius:18px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+button{background:#5bafd9;color:#fff;border:none;border-radius:12px;padding:12px 18px}
