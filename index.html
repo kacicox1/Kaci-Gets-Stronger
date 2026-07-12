@@ -8,13 +8,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Kaci Strong</title>
+<title>Kaci Strong v6.0</title>
 
 <link rel="manifest" href="manifest.json">
 
 <link rel="stylesheet" href="style.css">
 
-<meta name="theme-color" content="#7fb5e8">
+<meta name="theme-color" content="#6ea8dc">
 
 </head>
 
@@ -22,9 +22,11 @@
 
 <header class="hero">
 
+<div class="hero-content">
+
 <h1>💙 Kaci Strong</h1>
 
-<p id="greeting">Good Afternoon, Kaci!</p>
+<p id="greeting">Welcome Back, Kaci!</p>
 
 <div class="status-pill">
 
@@ -32,57 +34,19 @@
 
 </div>
 
-<p class="nextOff">
+<p class="next-off">
 
-Next OFF Day: July 17
+Next OFF Day • July 17
 
 </p>
 
+</div>
+
 </header>
-
-<nav class="bottom-nav">
-
-<button class="nav-btn active" data-page="home">
-
-🏠
-
-<span>Home</span>
-
-</button>
-
-<button class="nav-btn" data-page="workout">
-
-💪
-
-<span>Workout</span>
-
-</button>
-
-<button class="nav-btn" data-page="progress">
-
-📈
-
-<span>Progress</span>
-
-</button>
-
-<button class="nav-btn" data-page="settings">
-
-⚙️
-
-<span>Settings</span>
-
-</button>
-
-</nav>
 
 <main>
 
-<!-- HOME -->
-
-<section id="home" class="page active">
-
-<div class="card">
+<section class="card workout-card">
 
 <h2>Today's Workout</h2>
 
@@ -92,23 +56,23 @@ Upper Body & Arms
 
 </h3>
 
-<div class="progressBar">
+<div class="progress-bar">
 
-<div id="workoutProgress"></div>
+<div id="progressFill"></div>
 
 </div>
 
 <ul class="exercise-list">
 
-<li><input type="checkbox"> Warm-up</li>
+<li><label><input type="checkbox"> Warm-up</label></li>
 
-<li><input type="checkbox"> Push-ups</li>
+<li><label><input type="checkbox"> Push-ups</label></li>
 
-<li><input type="checkbox"> Dumbbell Press</li>
+<li><label><input type="checkbox"> Dumbbell Press</label></li>
 
-<li><input type="checkbox"> Rows</li>
+<li><label><input type="checkbox"> Rows</label></li>
 
-<li><input type="checkbox"> Stretch</li>
+<li><label><input type="checkbox"> Stretch</label></li>
 
 </ul>
 
@@ -118,11 +82,11 @@ Upper Body & Arms
 
 </button>
 
-</div>
+</section>
 
-<div class="grid">
+<section class="dashboard">
 
-<div class="small-card">
+<div class="mini-card">
 
 <h3>💧 Water</h3>
 
@@ -130,11 +94,7 @@ Upper Body & Arms
 
 <button id="waterMinus">−</button>
 
-<span id="waterCount">
-
-0/8
-
-</span>
+<span id="waterCount">0 / 8</span>
 
 <button id="waterPlus">+</button>
 
@@ -142,7 +102,7 @@ Upper Body & Arms
 
 </div>
 
-<div class="small-card">
+<div class="mini-card">
 
 <h3>🍗 Protein</h3>
 
@@ -150,11 +110,7 @@ Upper Body & Arms
 
 <button id="proteinMinus">−</button>
 
-<span id="proteinCount">
-
-0/120g
-
-</span>
+<span id="proteinCount">0 / 120g</span>
 
 <button id="proteinPlus">+</button>
 
@@ -162,99 +118,65 @@ Upper Body & Arms
 
 </div>
 
-<div class="small-card">
+<div class="mini-card">
 
-<h3>🔥 Streak</h3>
+<h3>🔥 Workout Streak</h3>
 
-<p id="streak">
-
-0 Days
-
-</p>
+<p id="streak">0 Days</p>
 
 </div>
 
-<div class="small-card">
+<div class="mini-card">
 
 <h3>⚖️ Weight Goal</h3>
 
-<p id="goal">
+<p id="goalRemaining">
 
-55 lbs remaining
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- WORKOUT -->
-
-<section id="workout" class="page">
-
-<div class="card">
-
-<h2>Workout Library</h2>
-
-<p>
-
-Upper Body<br>
-
-Lower Body<br>
-
-Leg Day<br>
-
-Cardio<br>
-
-Stretching
+55 lbs Remaining
 
 </p>
-
-</div>
-
-</section>
-
-<!-- PROGRESS -->
-
-<section id="progress" class="page">
-
-<div class="card">
-
-<h2>Your Progress</h2>
-
-<p>
-
-Charts and statistics coming in Version 5.
-
-</p>
-
-</div>
-
-</section>
-
-<!-- SETTINGS -->
-
-<section id="settings" class="page">
-
-<div class="card">
-
-<h2>Settings</h2>
-
-<label>
-
-<input type="checkbox" id="darkMode">
-
-Dark Mode
-
-</label>
 
 </div>
 
 </section>
 
 </main>
+
+<nav class="bottom-nav">
+
+<button class="active">
+
+🏠
+
+<span>Home</span>
+
+</button>
+
+<button>
+
+💪
+
+<span>Workout</span>
+
+</button>
+
+<button>
+
+📈
+
+<span>Progress</span>
+
+</button>
+
+<button>
+
+⚙️
+
+<span>Settings</span>
+
+</button>
+
+</nav>
 
 <script src="app.js"></script>
 
