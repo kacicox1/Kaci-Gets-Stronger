@@ -1,8 +1,8 @@
-// =========================
+// ===============================
 
-// Kaci Strong v5.0
+// Kaci Strong v6.0
 
-// =========================
+// ===============================
 
 // Greeting
 
@@ -24,169 +24,135 @@ if (hour < 12) {
 
 }
 
-// ----------------------
+// ---------- Load Saved Data ----------
 
-// Load Saved Data
+let water = parseInt(localStorage.getItem("water")) || 0;
 
-// ----------------------
+let protein = parseInt(localStorage.getItem("protein")) || 0;
 
-let water = Number(localStorage.getItem("water")) || 0;
+let streak = parseInt(localStorage.getItem("streak")) || 0;
 
-let protein = Number(localStorage.getItem("protein")) || 0;
+// ---------- Dashboard ----------
 
-let streak = Number(localStorage.getItem("streak")) || 0;
-
-// Update Screen
-
-function updateDashboard(){
+function refreshDashboard() {
 
     document.getElementById("waterCount").textContent =
 
-        water + "/8";
+        `${water} / 8`;
 
     document.getElementById("proteinCount").textContent =
 
-        protein + "/120g";
+        `${protein} / 120g`;
 
     document.getElementById("streak").textContent =
 
-        streak + " Days";
+        `${streak} Days`;
 
 }
 
-updateDashboard();
+refreshDashboard();
 
-// ----------------------
+// ---------- Water ----------
 
-// Water Buttons
+document.getElementById("waterPlus").onclick = () => {
 
-// ----------------------
+    if (water < 8) water++;
 
-document.getElementById("waterPlus").onclick = () =>{
+    localStorage.setItem("water", water);
 
-    if(water < 8){
-
-        water++;
-
-        localStorage.setItem("water",water);
-
-        updateDashboard();
-
-    }
+    refreshDashboard();
 
 };
 
-document.getElementById("waterMinus").onclick = () =>{
+document.getElementById("waterMinus").onclick = () => {
 
-    if(water > 0){
+    if (water > 0) water--;
 
-        water--;
+    localStorage.setItem("water", water);
 
-        localStorage.setItem("water",water);
-
-        updateDashboard();
-
-    }
+    refreshDashboard();
 
 };
 
-// ----------------------
+// ---------- Protein ----------
 
-// Protein Buttons
-
-// ----------------------
-
-document.getElementById("proteinPlus").onclick = () =>{
+document.getElementById("proteinPlus").onclick = () => {
 
     protein += 10;
 
-    if(protein > 120){
+    if (protein > 120) protein = 120;
 
-        protein = 120;
+    localStorage.setItem("protein", protein);
 
-    }
-
-    localStorage.setItem("protein",protein);
-
-    updateDashboard();
+    refreshDashboard();
 
 };
 
-document.getElementById("proteinMinus").onclick = () =>{
+document.getElementById("proteinMinus").onclick = () => {
 
     protein -= 10;
 
-    if(protein < 0){
+    if (protein < 0) protein = 0;
 
-        protein = 0;
+    localStorage.setItem("protein", protein);
 
-    }
-
-    localStorage.setItem("protein",protein);
-
-    updateDashboard();
+    refreshDashboard();
 
 };
 
-// ----------------------
+// ---------- Workout ----------
 
-// Workout Checklist
-
-// ----------------------
-
-const checks =
+const boxes =
 
 document.querySelectorAll(".exercise-list input");
 
 const progress =
 
-document.getElementById("workoutProgress");
+document.getElementById("progressFill");
 
-checks.forEach(check =>{
+boxes.forEach(box => {
 
-    check.addEventListener("change",updateWorkout);
+    box.addEventListener("change", updateWorkout);
 
 });
 
-function updateWorkout(){
+function updateWorkout() {
 
-    let completed = 0;
+    let checked = 0;
 
-    checks.forEach(c=>{
+    boxes.forEach(box => {
 
-        if(c.checked){
-
-            completed++;
-
-        }
+        if (box.checked) checked++;
 
     });
 
-    let percent =
+    const percent =
 
-        (completed / checks.length) * 100;
+        (checked / boxes.length) * 100;
 
-    progress.style.width =
-
-        percent + "%";
+    progress.style.width = percent + "%";
 
 }
 
-// ----------------------
+// ---------- Start Workout ----------
 
-// Finish Workout
+const workoutButton =
 
-// ----------------------
+document.getElementById("startWorkout");
 
-document
+workoutButton.onclick = () => {
 
-.getElementById("startWorkout")
+    let checked = 0;
 
-.onclick = () =>{
+    boxes.forEach(box => {
 
-    if(progress.style.width !== "100%"){
+        if (box.checked) checked++;
 
-        alert("Complete every exercise first!");
+    });
+
+    if (checked !== boxes.length) {
+
+        alert("Complete every exercise first 💪");
 
         return;
 
@@ -194,84 +160,68 @@ document
 
     streak++;
 
-    localStorage.setItem("streak",streak);
+    localStorage.setItem("streak", streak);
 
-    updateDashboard();
+    refreshDashboard();
 
-    alert("🎉 Great Job Kaci!");
+    workoutButton.textContent =
+
+        "✅ Workout Complete";
+
+    workoutButton.style.background =
+
+        "#34c759";
+
+    alert("🎉 Great job, Kaci!");
 
 };
 
-// ----------------------
+// ---------- Navigation ----------
 
-// Navigation
+const navButtons =
 
-// ----------------------
+document.querySelectorAll(".bottom-nav button");
 
-const buttons =
+navButtons.forEach(button => {
 
-document.querySelectorAll(".nav-btn");
+    button.addEventListener("click", () => {
 
-const pages =
+        navButtons.forEach(btn =>
 
-document.querySelectorAll(".page");
+            btn.classList.remove("active"));
 
-buttons.forEach(button=>{
+        button.classList.add("active");
 
-button.addEventListener("click",()=>{
-
-buttons.forEach(b=>b.classList.remove("active"));
-
-button.classList.add("active");
-
-const page =
-
-button.dataset.page;
-
-pages.forEach(p=>{
-
-p.classList.remove("active");
+    });
 
 });
 
-document
+// ---------- Auto Save Checkboxes ----------
 
-.getElementById(page)
+boxes.forEach((box, index) => {
 
-.classList.add("active");
+    const saved =
 
-});
+        localStorage.getItem("exercise" + index);
 
-});
+    if (saved === "true")
 
-// ----------------------
+        box.checked = true;
 
-// Dark Mode
+    box.addEventListener("change", () => {
 
-// ----------------------
+        localStorage.setItem(
 
-const dark =
+            "exercise" + index,
 
-document.getElementById("darkMode");
+            box.checked
 
-if(dark){
+        );
 
-dark.addEventListener("change",()=>{
+        updateWorkout();
 
-if(dark.checked){
-
-document.body.style.background="#111";
-
-document.body.style.color="white";
-
-}else{
-
-document.body.style.background="#eef5fb";
-
-document.body.style.color="#1f2937";
-
-}
+    });
 
 });
 
-}
+updateWorkout();
