@@ -191,7 +191,73 @@ if(nextOff === 1){
     " days until your next OFF day";
 
 }
+// ==========================================
 
+// Daily Workout Assignment
+
+// ==========================================
+
+const workoutTitle =
+
+document.getElementById("todayWorkout");
+
+let todaysWorkout = "";
+
+if (todayStatus === "WORK") {
+
+    todaysWorkout =
+
+    "🚶 Recovery Walk & Stretch";
+
+} else {
+
+    // Count which OFF day we're on
+
+    let offDay = 1;
+
+    let i = rotationIndex;
+
+    while (i > 0 && rotation[i - 1] === "OFF") {
+
+        offDay++;
+
+        i--;
+
+    }
+
+    switch (offDay) {
+
+        case 1:
+
+            todaysWorkout =
+
+            "💪 Upper Body & Arms";
+
+            break;
+
+        case 2:
+
+            todaysWorkout =
+
+            "🦵 Lower Body";
+
+            break;
+
+        default:
+
+            todaysWorkout =
+
+            "🔥 Full Body & Cardio";
+
+            break;
+
+    }
+
+}
+
+workoutTitle.textContent =
+
+todaysWorkout;
 // ==========================================
 
 // Saved Data
