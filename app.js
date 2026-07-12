@@ -1,10 +1,10 @@
-// ============================
+// ==========================================
 
 // Kaci Strong v6.2
 
-// Automatic Work Rotation
+// Part 1 of 2
 
-// ============================
+// ==========================================
 
 // Greeting
 
@@ -12,63 +12,73 @@ const greeting = document.getElementById("greeting");
 
 const hour = new Date().getHours();
 
-if(hour < 12){
+if (hour < 12) {
 
     greeting.textContent = "Good Morning, Kaci!";
 
-}else if(hour < 18){
+} else if (hour < 18) {
 
     greeting.textContent = "Good Afternoon, Kaci!";
 
-}else{
+} else {
 
     greeting.textContent = "Good Evening, Kaci!";
 
 }
 
-// ----------------------------
+// ==========================================
 
-// Rotation
+// Work Rotation
 
-// July 17, 2026 = OFF DAY
+// ==========================================
 
-// ----------------------------
+// Rotation:
+
+// Work, Work, Work, Off,
+
+// Work, Work, Work,
+
+// Off, Off, Off,
+
+// Work,
+
+// Off, Off, Off
 
 const rotation = [
 
-"WORK",
+    "WORK",
 
-"WORK",
+    "WORK",
 
-"WORK",
+    "WORK",
 
-"OFF",
+    "OFF",
 
-"WORK",
+    "WORK",
 
-"WORK",
+    "WORK",
 
-"WORK",
+    "WORK",
 
-"OFF",
+    "OFF",
 
-"OFF",
+    "OFF",
 
-"OFF",
+    "OFF",
 
-"WORK",
+    "WORK",
 
-"OFF",
+    "OFF",
 
-"OFF",
+    "OFF",
 
-"OFF"
+    "OFF"
 
 ];
 
-const rotationStart =
+// July 17, 2026 = OFF DAY
 
-new Date(2026,6,17); // July = month 6
+const rotationStart = new Date(2026, 6, 17);
 
 const today = new Date();
 
@@ -76,176 +86,365 @@ rotationStart.setHours(0,0,0,0);
 
 today.setHours(0,0,0,0);
 
-const days =
+const daysSince =
 
 Math.floor(
 
-(today-rotationStart)/(1000*60*60*24)
+(today - rotationStart) /
+
+(1000 * 60 * 60 * 24)
 
 );
 
-const index =
+const rotationIndex =
 
-((days % rotation.length)+rotation.length)
+((daysSince % rotation.length)
+
++ rotation.length)
 
 % rotation.length;
 
 const todayStatus =
 
-rotation[index];
+rotation[rotationIndex];
 
-const status =
+const statusPill =
 
 document.getElementById("statusPill");
 
-if(todayStatus==="WORK"){
+if(todayStatus === "WORK"){
 
-status.innerHTML="🔴 WORK DAY";
+    statusPill.innerHTML =
 
-status.style.background="#ffe5e5";
+    "🔴 WORK DAY";
 
-status.style.color="#c62828";
+    statusPill.style.background =
+
+    "#ffe8e8";
+
+    statusPill.style.color =
+
+    "#b91c1c";
 
 }else{
 
-status.innerHTML="🟢 OFF DAY";
+    statusPill.innerHTML =
 
-status.style.background="#eef8ea";
+    "🟢 OFF DAY";
 
-status.style.color="#2e7d32";
+    statusPill.style.background =
+
+    "#eef8ea";
+
+    statusPill.style.color =
+
+    "#2e7d32";
 
 }
 
-// ----------------------------
+// ==========================================
 
 // Next OFF Day
 
-// ----------------------------
+// ==========================================
 
 let nextOff = 0;
 
-for(let i=1;i<=rotation.length;i++){
+for(let i = 1; i <= rotation.length; i++){
 
-let check =
+    const check =
 
-rotation[(index+i)%rotation.length];
+    rotation[
 
-if(check==="OFF"){
+    (rotationIndex + i)
 
-nextOff=i;
+    % rotation.length
 
-break;
+    ];
+
+    if(check === "OFF"){
+
+        nextOff = i;
+
+        break;
+
+    }
 
 }
 
-}
-
-const nextText =
+const nextOffLabel =
 
 document.getElementById("nextOffDay");
 
-if(nextOff===1){
+if(nextOff === 1){
 
-nextText.textContent =
+    nextOffLabel.textContent =
 
-"Tomorrow is an OFF day";
-
-}else if(nextOff===0){
-
-nextText.textContent =
-
-"Today is an OFF day";
+    "Tomorrow is your next OFF day";
 
 }else{
 
-nextText.textContent =
+    nextOffLabel.textContent =
 
-nextOff +
+    nextOff +
 
-" days until your next OFF day";
+    " days until your next OFF day";
 
 }
 
-// ----------------------------
+// ==========================================
 
-// Existing trackers
+// Saved Data
 
-// ----------------------------
+// ==========================================
 
 let water =
 
-Number(localStorage.getItem("water")) || 0;
+Number(
+
+localStorage.getItem("water")
+
+) || 0;
 
 let protein =
 
-Number(localStorage.getItem("protein")) || 0;
+Number(
+
+localStorage.getItem("protein")
+
+) || 0;
 
 let streak =
 
-Number(localStorage.getItem("streak")) || 0;
+Number(
 
-function refresh(){
+localStorage.getItem("streak")
 
-document.getElementById("waterCount").textContent =
+) || 0;
+
+function refreshDashboard(){
+
+document.getElementById(
+
+"waterCount"
+
+).textContent =
 
 water + " / 8";
 
-document.getElementById("proteinCount").textContent =
+document.getElementById(
+
+"proteinCount"
+
+).textContent =
 
 protein + " / 120g";
 
-document.getElementById("streak").textContent =
+document.getElementById(
+
+"streak"
+
+).textContent =
 
 streak + " Days";
 
 }
 
-refresh();
+refreshDashboard();
+// ==========================================
 
-document.getElementById("waterPlus").onclick=()=>{
+// Water Tracker
 
-if(water<8){
+// ==========================================
 
-water++;
+document.getElementById("waterPlus").addEventListener("click", () => {
 
-localStorage.setItem("water",water);
+    if (water < 8) {
 
-refresh();
+        water++;
+
+        localStorage.setItem("water", water);
+
+        refreshDashboard();
+
+    }
+
+});
+
+document.getElementById("waterMinus").addEventListener("click", () => {
+
+    if (water > 0) {
+
+        water--;
+
+        localStorage.setItem("water", water);
+
+        refreshDashboard();
+
+    }
+
+});
+
+// ==========================================
+
+// Protein Tracker
+
+// ==========================================
+
+document.getElementById("proteinPlus").addEventListener("click", () => {
+
+    protein = Math.min(120, protein + 10);
+
+    localStorage.setItem("protein", protein);
+
+    refreshDashboard();
+
+});
+
+document.getElementById("proteinMinus").addEventListener("click", () => {
+
+    protein = Math.max(0, protein - 10);
+
+    localStorage.setItem("protein", protein);
+
+    refreshDashboard();
+
+});
+
+// ==========================================
+
+// Workout Checklist
+
+// ==========================================
+
+const exerciseBoxes =
+
+document.querySelectorAll(".exercise-list input");
+
+const progressFill =
+
+document.getElementById("progressFill");
+
+function updateWorkoutProgress() {
+
+    let completed = 0;
+
+    exerciseBoxes.forEach((box, index) => {
+
+        const saved =
+
+        localStorage.getItem("exercise" + index);
+
+        if (saved === "true") {
+
+            box.checked = true;
+
+        }
+
+        if (box.checked) {
+
+            completed++;
+
+        }
+
+        box.onchange = () => {
+
+            localStorage.setItem(
+
+                "exercise" + index,
+
+                box.checked
+
+            );
+
+            updateWorkoutProgress();
+
+        };
+
+    });
+
+    const percent =
+
+    (completed / exerciseBoxes.length) * 100;
+
+    progressFill.style.width =
+
+    percent + "%";
 
 }
 
-};
+updateWorkoutProgress();
 
-document.getElementById("waterMinus").onclick=()=>{
+// ==========================================
 
-if(water>0){
+// Start Workout Button
 
-water--;
+// ==========================================
 
-localStorage.setItem("water",water);
+const startWorkout =
 
-refresh();
+document.getElementById("startWorkout");
 
-}
+startWorkout.addEventListener("click", () => {
 
-};
+    const finished =
 
-document.getElementById("proteinPlus").onclick=()=>{
+    [...exerciseBoxes].every(box => box.checked);
 
-protein=Math.min(120,protein+10);
+    if (!finished) {
 
-localStorage.setItem("protein",protein);
+        alert("Complete every exercise first 💪");
 
-refresh();
+        return;
 
-};
+    }
 
-document.getElementById("proteinMinus").onclick=()=>{
+    streak++;
 
-protein=Math.max(0,protein-10);
+    localStorage.setItem("streak", streak);
 
-localStorage.setItem("protein",protein);
+    refreshDashboard();
 
-refresh();
+    startWorkout.textContent =
 
-};
+    "✅ Workout Complete";
+
+    startWorkout.style.background =
+
+    "#2ecc71";
+
+    alert("🎉 Awesome job, Kaci!");
+
+});
+
+// ==========================================
+
+// Bottom Navigation
+
+// ==========================================
+
+const navButtons =
+
+document.querySelectorAll(".bottom-nav button");
+
+navButtons.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        navButtons.forEach(btn =>
+
+            btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+    });
+
+});
+
+// ==========================================
+
+// End of Version 6.2
+
+// ==========================================
+
+console.log("Kaci Strong Version 6.2 Loaded");
