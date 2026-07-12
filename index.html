@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kaci Strong 3.0</title>
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="hero">
+<h1>💙 Kaci Strong</h1>
+<p id="greeting"></p>
+<div class="pill" id="status">🟢 OFF DAY</div>
+</header>
+
+<section class="card">
+<h2>Today's Workout</h2>
+<h3 id="workout">Upper Body & Arms</h3>
+<p>⏱️ 25 Minutes</p>
+<button>▶ Start Workout</button>
+</section>
+
+<section class="card">
+<h2>💧 Water</h2>
+<div><button onclick="changeWater(-1)">-</button>
+<span id="water">0</span>/8
+<button onclick="changeWater(1)">+</button></div>
+</section>
+
+<section class="card">
+<h2>🍗 Protein</h2>
+<div><button onclick="changeProtein(-10)">-</button>
+<span id="protein">0</span>/120 g
+<button onclick="changeProtein(10)">+</button></div>
+</section>
+
+<section class="card">
+<h2>🔥 Streak</h2>
+<p id="streak">0 Days</p>
+</section>
+
+<nav class="nav">
+<div>🏠<br>Home</div><div>💪<br>Workout</div><div>📈<br>Progress</div><div>⚙️<br>Settings</div>
+</nav>
+<script src="app.js"></script>
+</body></html>
